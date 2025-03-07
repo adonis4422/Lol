@@ -1,0 +1,24 @@
+{
+    "format_version": 2,
+    "header": {
+        "name": "Random Events Addon",
+        "description": "每 60 秒触发一个随机事件",
+        "uuid": "08e10835-cf6d-4bc4-bbd6-991ed0f0ccb9",
+        "version": [1, 0, 0],
+        "min_engine_version": [1, 19, 0]
+    },
+    "modules": [
+        {
+            "type": "script",
+            "uuid": "b3a6b9b2-14c3-4fd3-b3d5-8f0f2a6aeb99",
+            "version": [1, 0, 0],
+            "entry": "scripts/main.js"
+        }
+    ],
+    "dependencies": [
+        {
+            "module_name": "GameTest",
+            "version": "1.0.0-beta"
+        }
+    ]
+}

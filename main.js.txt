@@ -1,0 +1,13 @@
+import { world } from "@minecraft/server";
+import { runRandomEvent } from "./events.js";
+
+let tickCounter = 0;
+const intervalTicks = 1200; // 1 tick = 1/20 秒, 1200 ticks = 60秒
+
+world.events.tick.subscribe(() => {
+    tickCounter++;
+    if (tickCounter >= intervalTicks) {
+        tickCounter = 0;
+        runRandomEvent();
+    }
+});

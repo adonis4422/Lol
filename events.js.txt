@@ -1,0 +1,38 @@
+import { world, Player } from "@minecraft/server";
+
+const events = [
+    { name: "给予钻石", action: (player) => player.runCommand("give @s diamond 1") },
+    { name: "生成TNT", action: (player) => player.runCommand("summon tnt ~ ~ ~") },
+    { name: "传送随机位置", action: (player) => {
+        let x = Math.floor(Math.random() * 100) - 50;
+        let z = Math.floor(Math.random() * 100) - 50;
+        player.runCommand(`tp @s ${x} 100 ${z}`);
+    }},
+    { name: "天气变成雷雨", action: () => world.getDimension("overworld").runCommand("weather thunder") },
+    { name: "生成僵尸", action: (player) => player.runCommand("summon zombie ~ ~ ~") },
+    { name: "让玩家飞起来", action: (player) => player.runCommand("effect @s levitation 5 1") },
+    { name: "脚下变成岩浆", action: (player) => player.runCommand("setblock ~ ~-1 ~ lava") },
+    { name: "随机闪电", action: (player) => player.runCommand("summon lightning_bolt ~ ~ ~") },
+    { name: "玩家获得超级速度", action: (player) => player.runCommand("effect @s speed 10 5") },
+    { name: "传送到世界最高处", action: (player) => player.runCommand("tp @s ~ 300 ~") },
+    { name: "让玩家变成鸡", action: (player) => player.runCommand("replaceitem entity @s slot.armor.head minecraft:chicken_spawn_egg") },
+    { name: "突然黑屏", action: (player) => player.runCommand("effect @s blindness 5 1") },
+    { name: "夜晚突然变白天", action: () => world.getDimension("overworld").runCommand("time set day") },
+    { name: "玩家变成幽灵", action: (player) => player.runCommand("effect @s invisibility 30 1") },
+    { name: "随机物品", action: (player) => {
+        let items = ["apple", "iron_sword", "golden_apple", "ender_pearl", "totem_of_undying"];
+        let item = items[Math.floor(Math.random() * items.length)];
+        player.runCommand(`give @s ${item} 1`);
+    }},
+];
+
+export function runRandomEvent() {
+    let onlinePlayers = world.getPlayers();
+    if (onlinePlayers.length === 0) return;
+
+    let player = onlinePlayers[Math.floor(Math.random() * onlinePlayers.length)];
+    let event = events[Math.floor(Math.random() * events.length)];
+
+    player.sendMessage(`随机事件触发: ${event.name}`);
+    event.action(player);
+}

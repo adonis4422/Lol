@@ -1,0 +1,29 @@
+import { world } from "@minecraft/server";
+
+/**
+ * 生成一个随机整数
+ * @param {number} min 最小值
+ * @param {number} max 最大值
+ * @returns {number} 随机整数
+ */
+export function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/**
+ * 获取在线的随机玩家
+ * @returns {Player | null} 返回随机玩家
+ */
+export function getRandomPlayer() {
+    let players = world.getPlayers();
+    if (players.length === 0) return null;
+    return players[Math.floor(Math.random() * players.length)];
+}
+
+/**
+ * 在聊天框输出调试信息
+ * @param {string} message 需要输出的信息
+ */
+export function debugLog(message) {
+    world.getDimension("overworld").runCommand(`say [DEBUG] ${message}`);
+}
